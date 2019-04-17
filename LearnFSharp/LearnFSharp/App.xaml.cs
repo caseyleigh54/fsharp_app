@@ -11,7 +11,7 @@ namespace LearnFSharp
         {
             InitializeComponent();
 
-            MainPage = new SingleLessonPage();
+            MainPage = new MainPage();
 
 
 
