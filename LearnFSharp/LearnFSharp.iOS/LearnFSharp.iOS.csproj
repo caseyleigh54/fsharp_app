@@ -158,7 +158,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\3d.png" />
     <BundleResource Include="Resources\infinity-sign.png" />
     <BundleResource Include="Resources\organization.png" />
     <BundleResource Include="Resources\settings-gears.png" />
@@ -167,5 +166,6 @@
     <BundleResource Include="Resources\menu.png" />
     <BundleResource Include="Resources\user.png" />
     <BundleResource Include="Resources\home.png" />
+    <BundleResource Include="Resources\threeD.png" />
   </ItemGroup>
 </Project>

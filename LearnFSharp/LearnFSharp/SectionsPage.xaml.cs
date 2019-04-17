@@ -11,11 +11,11 @@ namespace LearnFSharp
         {
             InitializeComponent();
             NavigationPage.SetBackButtonTitle(this, "");
-            basicImage.Source = ImageSource.FromFile("curly-brackets.png");
-            loopsImage.Source = ImageSource.FromFile("infinity-sign.png");
-            methodsImage.Source = ImageSource.FromFile("settings-gears.png");
+            basicImage.Source = ImageSource.FromFile("curly.png");
+            loopsImage.Source = ImageSource.FromFile("infinity.png");
+            methodsImage.Source = ImageSource.FromFile("settings.png");
             classesImage.Source = ImageSource.FromFile("structure.png");
-            arraysImage.Source = ImageSource.FromFile("3d.png");
+            arraysImage.Source = ImageSource.FromFile("threeD.png");
             moreClassesImage.Source = ImageSource.FromFile("organization.png");
 
             SetGesture(basicConcepts, "Basic Concepts");
