@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    Title="Menu"
+    
+    xmlns:ic="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="LearnFSharp.MasterPage">
+    <ContentPage.Icon>
+        <OnPlatform x:TypeArguments="FileImageSource" iOS="menu.png" Android="menu.png" />
+    </ContentPage.Icon>
+    <StackLayout BackgroundColor="#f7f5f5">
+        <StackLayout BackgroundColor="#08d2ec"> 
+             <StackLayout Padding="40">
+                <ic:CircleImage x:Name="profileImage" Aspect="AspectFit" WidthRequest="50" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Text="Name" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Small" TextColor="White"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="example@gmail.com" FontSize="Micro" TextColor="White" />
+                    <Label Text="SIGN OUT" HorizontalOptions="EndAndExpand" FontSize="Micro" FontAttributes="Bold" TextColor="White" />
+                </StackLayout>
+              
+          </StackLayout>
+        </StackLayout>
+        
+        <StackLayout>
+          <ListView x:Name="listView" BackgroundColor="Transparent" SeparatorVisibility="None" ItemTapped="Handle_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate> 
+                        <ViewCell>
+                            <StackLayout Spacing="50" Orientation="Horizontal" Padding="20,0,0,0">
+                                <Image Source="{Binding ImageUrl}" Aspect="AspectFit" WidthRequest="30" VerticalOptions="Center"/>
+                                <Label Text="{Binding Name}" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center" />
+                            </StackLayout>
+                            <StackLayout Spacing="50" Orientation="Horizontal" Padding="20,0,0,0">
+                                <Image Source="{Binding ImageUrl}" Aspect="AspectFit" WidthRequest="30" VerticalOptions="Center"/>
+                                <Label Text="{Binding Name}" FontSize="Micro" VerticalOptions="Center" HorizontalOptions="Center" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+              </ListView.ItemTemplate>
+           </ListView>
+            </StackLayout>
+   </StackLayout>
+
+</ContentPage>
