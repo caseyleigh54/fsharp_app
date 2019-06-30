@@ -1,0 +1,505 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>quitz template</title>
+    <style>
+        body {
+            background-color: whitesmoke;
+            font-size: large;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        input {
+            font-family: sans-serif;
+            font-size: medium;
+        }
+
+        .question-container {
+            background-color: white;
+            padding: 2%;
+        }
+
+        .question-title {
+            padding: 5%;
+            font-size: larger;
+        }
+
+        .steps-container {
+            /* margin: 40px 20px;
+            padding: 20px; */
+            text-align: center
+        }
+
+        .answer-button {
+            border: #dcdcdc solid;
+            background-color: whitesmoke;
+            font-size: medium;
+            padding: 3%;
+            margin: 5% 0;
+        }
+
+        .answer-button-active {
+            border: #dcdcdc solid 1px;
+            background-color: whitesmoke;
+            color: #005e6a;
+            font-size: medium;
+            padding: 3%;
+            margin: 5% 0;
+        }
+
+        .answer-button-right {
+            border: #27ae60 solid;
+            background-color: #2ece72;
+            color: white;
+            font-size: medium;
+            padding: 3%;
+            margin: 5% 0;
+        }
+
+        .answer-button-wrong {
+            border: #c0392b solid;
+            background-color: #d03e2f;
+            color: white;
+            font-size: medium;
+            padding: 3%;
+            margin: 5% 0;
+        }
+
+        .next-button {
+            background-color: #01bcd5;
+            padding: 5%;
+            border-radius: 1px;
+            border: #dcdcdc solid 1px;
+            bottom: 5%;
+            right: 10%;
+            font-size: medium;
+            text-align: center;
+            color: #005e6a;
+            float: right;
+            width: auto;
+        }
+
+        .back-button {
+            background-color: #01bcd5;
+            padding: 5%;
+            border-radius: 1px;
+            border: #dcdcdc solid 1px;
+            bottom: 5%;
+            right: 10%;
+            font-size: medium;
+            text-align: center;
+            color: #005e6a;
+            float: left;
+            width: auto;
+        }
+
+        .active-step {
+            background-color: #01bcd5;
+            border: #dcdcdc solid 1px;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .step {
+            background-color: #dcdcdc;
+            border: #dcdcdc solid 1px;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        #div0, #div1, #div2, #div8 {
+            width: auto;
+            height: auto;
+            border-bottom: 1px solid #aaaaaa;
+        }
+
+        .column {
+            float: right;
+            padding: 10px;
+        }
+
+        .right {
+            width: 100%;
+            float: right;
+
+        }
+        .left {
+            width: 100%;
+            float: left;
+        }
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            clear: both;
+            position: absolute;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto;
+
+        }
+
+        .grid-item {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="steps-container" id="steps-container">
+
+    </div>
+    <div class="question-container" id="question-container">
+        <div class="question-title" id="question-title">
+            Question
+        </div>
+
+        <div class="answers-container" id="answers-container">
+
+        </div>
+
+    </div>
+    <br /><br />
+    <div class="grid-container">
+        <div class="grid-item">
+            <div class="back-button" id="back-button">
+                Back
+            </div>
+        </div>
+        <div class="grid-item" id="next-button-column">
+            <div class="next-button" id="next-button">
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>MULTIPLE_CHOICE = 0;
+        TEXT = 1;
+        DRAG_N_DROP = 2;
+        FILL_IN_BLANKS = 3;
+        END = 4;
+
+        var items = [
+            {
+                id: 0,
+                question: 'What is F#?',
+                type: TEXT,
+                txt: 'F# is a functional programming language. Functional programming treats computer programs as mathematical functions. It focuses on values and functions instead of variables and states. <br><br><mark>F# is used for financial modelling such as those in the stock market.</mark>'
+
+            },
+            {
+
+
+                id: 1,
+                question: 'F# is a: ',
+                type: MULTIPLE_CHOICE,
+                answers: [
+                    {
+                        id: 1,
+                        answer: 'Declarative language'
+
+                    },
+                    {
+                        id: 2,
+                        answer: 'Functional language',
+                        right: true
+                    },
+                    {
+                        id: 3,
+                        answer: 'Imperative language'
+                    }
+                ]
+            },
+            {
+                id: 0,
+                question: 'Your First F# Program',
+                type: TEXT,
+                txt: 'A F# program is a collection of functional commands and statements' +
+                    'Below is a simple code that has "Hello world!" as its output.' + '<br><br><code>open System <br>let main() = Console.WriteLine("Hello World!") <br><br>main()</code>' +
+                    '<br><br><mark>Note: F# does not use semicolons ; at the end of statements like C++ and Java</mark>'
+
+            },
+            {
+                id: 0,
+                question: 'Lets break down parts of the code',
+                type: TEXT,
+                txt: '<code>open System</code><br><br>' +
+                    'F# offers a variety of headers each of which contain information needed for programs to work.' +
+                    ' The open statement is used to import namespaces. <br><br>Open System is similar to #include <iostream> in c++'
+
+            },
+            {
+                id: 5,
+                question: 'Fill in the blanks to include the System header',
+                type: FILL_IN_BLANKS,
+                txt: 'open ',
+                answers: [
+                    {
+                        id: 1,
+                        answer: 'system'
+                    }
+                ]
+            },
+            {
+                id: 0,
+                question: 'Execution',
+                type: TEXT,
+                txt: 'In general, an F# application does not have any specific entry point. The compiler executes all '
+                    + 'top-level statements in the file from top to bottom. However, to follow procedural programming style, ' +
+                    'many applications keep a single top level statement that calls the main loop.' 
+
+            },
+            {
+                id: 2,
+                question: 'Is this statement correct?',
+                type: MULTIPLE_CHOICE,
+                txt: '<div><code>open System<br>let aFunction() = Console.WriteLine("Hello World!")<br>aFunction()<code></div>',
+                answers: [
+                    {
+                        id: 1,
+                        answer: 'True',
+                        right: true
+                    },
+                    {
+                        id: 2,
+                        answer: 'False'
+
+                    }
+                ]
+            },
+            {
+                id: 6,
+                question: 'How do you print "Hello World"?',
+                type: DRAG_N_DROP,
+                txt: '<code>let main() = Console.',
+                answers: [
+                    {
+                        id: 1,
+                        answer: 'WriteLine("Hello World!")',
+                        right: true
+                    },
+                    {
+                        id: 2,
+                        answer: 'Print("Hello World")'
+
+                    }
+                ]
+            },
+            {
+                id: 7,
+                question: 'Completed!',
+                type: END,
+                txt: 'Navigate back to the other lessons to learn more!',
+
+
+            }
+        ]
+
+        var step = 0
+        var correct = true
+        var answer = ""
+        var questionTitle = document.getElementById('question-title')
+        var questionAnswersContainer = document.getElementById('answers-container')
+        var nextButton = document.getElementById('next-button')
+        var stepsContainer = document.getElementById('steps-container')
+        var backButton = document.getElementById('back-button')
+
+
+        document.addEventListener("backbutton", onBackKeyDown, false);
+
+        function onBackKeyDown() {
+            if (step > 0) {
+                step--
+                updateQuestion()
+                updateSteps()
+            }
+        }
+
+        backButton.onclick = function () {
+            if (step > 0) {
+                step--
+                updateQuestion()
+                updateSteps()
+            }
+        }
+
+
+        nextButton.onclick = function () {
+            console.log(correct)
+            if (items[step].type == FILL_IN_BLANKS && correct) {
+                checkAnswer(document.getElementById('input_1').value)
+            }
+            else {
+                nextButton.style.background = '#01bcd5'
+                step++
+                updateQuestion()
+                updateSteps()
+            }
+        }
+
+        var checkAnswer = function (answer) {
+            console.log(document.getElementById('input_1').value)
+            if (items[step].answers[0].answer == answer) {
+                console.log('answer correct')
+                nextButton.style.background = '#8DC443'
+                nextButton.innerHTML = 'Next'
+                correct = false
+            }
+            else {
+                nextButton.style.background = '#FF0000'
+                nextButton.innerHTML = 'Try Again'
+            }
+        }
+
+        var updateSteps = function () {
+            stepsContainer.innerHTML = ''
+            var stepsElements = ''
+            items.forEach(function (item, i) {
+                if (i <= step) {
+                    stepsElements += '<span class="active-step"></span>'
+                }
+                else {
+                    stepsElements += '<span class="step"></span>'
+                }
+            })
+
+            stepsContainer.innerHTML = stepsElements
+        }
+
+        var updateQuestion = function () {
+            if (items.length <= step) {
+                return
+            }
+            questionTitle.innerHTML = ''
+            questionAnswersContainer.innerHTML = ''
+
+            questionTitle.innerHTML = items[step].question
+
+            renderAnswers()
+        }
+
+        var renderAnswers = function (type) {
+            var answersElements = ''
+            var x = document.getElementById("next-button-column");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            }
+
+            if (items[step].type == MULTIPLE_CHOICE) {
+                nextButton.innerHTML = 'Next'
+                if (items[step].txt) { answersElements = items[step].txt }
+                items[step].answers.forEach(function (a, i) {
+                    if (a.chosen) {
+                        if (a.right) {
+                            answersElements += '<div class="answer-button-right" id="answer-' + step + '-' + i + '"> ' + a.answer + ' </div>'
+                        }
+                        else {
+                            answersElements += '<div class="answer-button-wrong" id="answer-' + step + '-' + i + '"> ' + a.answer + ' </div>'
+                        }
+
+                    }
+                    else {
+                        answersElements += '<div class="answer-button" id="answer-' + step + '-' + i + '"> ' + a.answer + ' </div>'
+                    }
+                })
+
+                questionAnswersContainer.innerHTML = answersElements
+
+                items[step].answers.forEach(function (a, i) {
+                    var stepButton = document.getElementById('answer-' + step + '-' + i)
+                    stepButton.onclick = function () {
+                        chooseAnswer(i)
+                    }
+                })
+            }
+            else if (items[step].type == TEXT) {
+                nextButton.innerHTML = 'Next'
+                questionAnswersContainer.innerHTML = '<div style="padding:5%" id="answer-' + step + '"><p>' + items[step].txt + '</p></div>'
+            }
+            else if (items[step].type == FILL_IN_BLANKS) {
+                nextButton.innerHTML = 'Check'
+                questionAnswersContainer.innerHTML = '<div id="answer-' + step + '"><p>' + items[step].txt + '<input id="input_1" style="border: 0;border-bottom: 2px solid" type="text"></p></div>'
+            }
+            else if (items[step].type == DRAG_N_DROP) {
+                questionAnswersContainer.innerHTML = '<code><div id="div8" ondrop="drop(event)" ondragover="allowDrop(event)">' + items[step].txt + '</div><br>'
+                items[step].answers.forEach(function (a, i) {
+                    questionAnswersContainer.innerHTML += '<br><div id="div' + i + '" ondrop="drop(event)" ondragover="allowDrop(event)"><label id="answer-' + step + '-' + i + '" draggable="true" ondragstart="drag(event)" width="336" height="69"><code>' + a.answer + '</code></label></div>'
+                })
+                questionAnswersContainer.innerHTML += '</code>'
+                nextButton.innerHTML = 'Check'
+
+
+            } else if (items[step].type == END) {
+                document.getElementById('next-button-column').style.display = "none"
+                questionAnswersContainer.innerHTML = '<div style="padding:5%" id="answer-' + step + '"><p>' + items[step].txt + '</p></div>'
+            }
+
+        }
+
+        var chooseAnswer = function (answerIndex) {
+            if (step >= items.length) {
+                return
+            }
+
+            items[step].answers.forEach(function (a, i) {
+                if (i == answerIndex) {
+                    a.chosen = true
+                }
+                else {
+                    a.chosen = false
+                }
+            })
+
+            renderAnswers()
+        }
+
+        updateQuestion()
+        updateSteps()
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+            answer = data
+            if (ev.target.id == 'div8') {
+                items[step].answers.forEach(function (a, i) {
+                    if (a.right) {
+                        console.log(a.answer)
+                        console.log(('answer-' + step + '-' + i).toString())
+                        if (data == ('answer-' + step + '-' + i).toString()) {
+                            nextButton.style.background = '#8DC443'
+                            nextButton.innerHTML = 'Next'
+                        }
+                        else {
+                            nextButton.style.background = '#d03e2f'
+                        }
+                    }
+                })
+            }
+            else {
+                nextButton.style.background = '#01bcd5'
+            }
+        }</script>
+</body>
+
+</html>

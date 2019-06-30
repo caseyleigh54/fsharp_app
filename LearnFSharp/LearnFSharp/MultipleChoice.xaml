@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+    xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+    xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="LearnFSharp.MultipleChoice">
+    <StackLayout IsVisible="{Binding isVisible}">
+        <Label Text="{Binding Question}" />
+        <input:RadioButtonGroupView >
+                    <input:RadioButton Text="{Binding Q1}" />
+                    <input:RadioButton Text="{Binding Q2}" />
+                    <input:RadioButton Text="{Binding Q3}" />
+                    <input:RadioButton Text="{Binding Q4}" />
+        </input:RadioButtonGroupView>
+    </StackLayout>            
+
+</ContentView>
