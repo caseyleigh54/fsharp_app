@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="LearnFSharp.LessonGridView">
-   <StackLayout BackgroundColor="White" >
-        <Label x:Name="lessonNum" Text="{Binding Nav}"   HorizontalOptions="EndAndExpand" TextColor="#6f6f6f" />
-        <Label x:Name="lessonTitle1" Text="{Binding Title}" HorizontalTextAlignment="Center" TextColor="#6f6f6f" />
-        <Label x:Name="numQuestions" Text="{Binding Questions}" VerticalOptions="EndAndExpand" BackgroundColor="#8DC443" TextColor="White" HeightRequest="30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-    </StackLayout>
-</ContentView>
